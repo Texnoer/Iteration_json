@@ -3,7 +3,7 @@ wikipedia_link = 'https://en.wikipedia.org/wiki/'
 class Iteration_json:
     def __init__(self, file):
         self.file = file
-        self.start = 0
+        self.start = -1
         self.len_f = len(self.file)
         f_j = open('countries.json', encoding='utf-8')
         self.file_json = json.load(f_j)
@@ -22,7 +22,7 @@ class Iteration_json:
         return unification
 
     def download(self, file_path):
-        with open(file_path, 'a', encoding='utf-8') as new_file:
+        with open(file_path, 'w', encoding='utf-8') as new_file:
             for data in self:
                 new_file.write(data)
                 # new_file.close()
@@ -30,8 +30,8 @@ class Iteration_json:
 if __name__ == '__main__':
     downloader = Iteration_json('contries.json')
     downloader.download('countries_links_1.txt')
-    for t in downloader:
-        print(t)
+    # for t in downloader:
+    #     print(t)
 
 
 
