@@ -18,28 +18,21 @@ class Iteration_json:
             raise StopIteration
         country = self.file_json[self.start]['name']['common']
         country_dash = country.replace(' ', '_')
-        unification = country + ' - ' + wikipedia_link + country_dash
+        unification = country + ' - ' + wikipedia_link + country_dash + '\n'
         return unification
 
     def download(self, file_path):
         with open(file_path, 'a', encoding='utf-8') as new_file:
             for data in self:
                 new_file.write(data)
-                new_file.close()
+                # new_file.close()
 
 if __name__ == '__main__':
     downloader = Iteration_json('contries.json')
+    downloader.download('countries_links_1.txt')
     for t in downloader:
         print(t)
-    # for name in file_json:
-    #     country = name['name']['common']
-    #     country_dash = country.replace(' ', '_')
-    #     print(country + ' - ' + wikipedia_link + country_dash)
-    #     unification = country + ' - ' + wikipedia_link + country_dash + '\n'
-    #     downloader = Iteration_json(unification)
-        # for rrr in downloader:
-        #     print(rrr)
-            # rrr.downloader.download('countries_links_1.txt')
+
 
 
 
