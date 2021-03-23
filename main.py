@@ -4,34 +4,42 @@ class Iteration_json:
     def __init__(self, file):
         self.file = file
         self.start = 0
-
+        self.len_f = len(self.file)
+        f_j = open('countries.json', encoding='utf-8')
+        self.file_json = json.load(f_j)
     def __iter__(self):
         return self
 
     def __next__(self):
         self.start += 1
         try:
-            self.start == len(self.file)
+            self.start <= self.len_f
         except IndexError:
             raise StopIteration
-        return self.file
+        country = self.file_json[self.start]['name']['common']
+        country_dash = country.replace(' ', '_')
+        unification = country + ' - ' + wikipedia_link + country_dash
+        return unification
 
-    def download (self, file_path):
+    def download(self, file_path):
         with open(file_path, 'a', encoding='utf-8') as new_file:
             for data in self:
                 new_file.write(data)
                 new_file.close()
 
 if __name__ == '__main__':
-    ft = open('countries.json', encoding='utf-8')
-    file_json = json.load(ft)
-    for name in file_json:
-        country = name['name']['common']
-        country_dash = country.replace(' ', '_')
-        print(country + ' - ' + wikipedia_link + country_dash)
-        unification = country + ' - ' + wikipedia_link + country_dash + '\n'
-        downloader = Iteration_json(unification)
-        downloader.download('countries_links_1.txt')
+    downloader = Iteration_json('contries.json')
+    for t in downloader:
+        print(t)
+    # for name in file_json:
+    #     country = name['name']['common']
+    #     country_dash = country.replace(' ', '_')
+    #     print(country + ' - ' + wikipedia_link + country_dash)
+    #     unification = country + ' - ' + wikipedia_link + country_dash + '\n'
+    #     downloader = Iteration_json(unification)
+        # for rrr in downloader:
+        #     print(rrr)
+            # rrr.downloader.download('countries_links_1.txt')
 
 
 
