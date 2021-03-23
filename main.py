@@ -13,10 +13,10 @@ class Iteration_json:
     def __next__(self):
         self.start += 1
         try:
-            self.start <= self.len_f
+            country = self.file_json[self.start]['name']['common']
         except IndexError:
             raise StopIteration
-        country = self.file_json[self.start]['name']['common']
+
         country_dash = country.replace(' ', '_')
         unification = country + ' - ' + wikipedia_link + country_dash + '\n'
         return unification
