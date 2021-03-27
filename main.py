@@ -1,5 +1,8 @@
 import json
+import hashlib
+
 wikipedia_link = 'https://en.wikipedia.org/wiki/'
+
 class Iteration_json:
     def __init__(self, file):
         self.file = file
@@ -25,13 +28,18 @@ class Iteration_json:
         with open(file_path, 'w', encoding='utf-8') as new_file:
             for data in self:
                 new_file.write(data)
-                # new_file.close()
+
+def hashlib_md5 (file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for chunk in file:
+            code_list= hashlib.md5(chunk.encode())
+            yield code_list.hexdigest()
 
 if __name__ == '__main__':
     downloader = Iteration_json('contries.json')
-    downloader.download('countries_links_1.txt')
-    # for t in downloader:
-    #     print(t)
+    downloader.download('countries_links.txt')
+    for result in hashlib_md5('countries_links.txt'):
+        print(result)
 
 
 
